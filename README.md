@@ -13,6 +13,7 @@ The following sensors are supported right away, either via ESPHome or via a cust
 1. [SHT-31](#sensor-support-sht-31)
 1. [Senseair S8](#sensor-support-senseair-s8)
 1. [SHT-20](#sensor-support-sht-20)
+1. [SHT-31 & Senseair S8 Combination Sensor](#Using-the-Combination-Sensor-with-Senseair-S8-&-SHT-31-on-the-same-board)
 
 
 
@@ -105,11 +106,33 @@ Add the following righ below "board: esp32dev"
 ```
 
 Place the SHT20.H file in the same directory as the `open-air-valve.yaml`.
-Thanks 
 
 @[wre](https://github.com/wrenoud) Thanks for your support on this sensor implementation
 
+### Using the Combination Sensor with Senseair S8 & SHT-31 on the same board
+
+If you want to use this specific combination sensor, add the following to the bottom of the `open-air-valve.yaml` file.
+
+```yaml
+sensor:
+  - platform: sht3xd
+    i2c_id: i2c_sensor_1
+    temperature:
+      name: "Temperature Open AIR Valve x"
+      id: air_temperature
+    humidity:
+      name: "Humidity Open AIR Valve x"
+      id: air_humidity
+    address: 0x44
+    update_interval: 60s
+  - platform: senseair
+    uart_id: uart_sensor_1
+    co2:
+      name: "CO2 Open AIR Valve x"
+      id: air_co2
+    update_interval: 60s
+```
 
 ## Disconnected Mode
 
-When Home Assistant cannot be reached, either because of a lack of WiFi connection or the Home Assistant server being unavailable, a `disconnected mode` has been added to provide basic functionality to the Open AIR Valve unit. This mode will allow the unit to continue standalone. When losing connection to HA or to your WI-FI network the valve will open automatically. 
+When Home Assistant cannot be reached, either because of a lack of WiFi connection or the Home Assistant server being unavailable, a `disconnected mode` has been added to provide basic functionality to the Open AIR Valve unit. This mode will allow the unit to continue standalone. When losing connection to Home Assistant or to your WI-FI network the valve will open automatically. 

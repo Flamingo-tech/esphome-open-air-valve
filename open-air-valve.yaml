@@ -1,5 +1,5 @@
 esphome:
-  name: "Open-AIR-Valve X"
+  name: "open-air-valve-x"
   name_add_mac_suffix: true
   platform: ESP32
   board: esp32dev
@@ -188,3 +188,21 @@ binary_sensor:
 switch:
   - platform: restart
     name: "Reboot valve controller to recalibrate"
+    
+script: !include disconnected-mode.yaml
+  # !include disconnected-mode-with-humidity.yaml
+
+interval:
+  - interval: 30s
+    then:
+      - logger.log: "API Connectivity Check for Disconnected Mode"
+      - if:
+          condition:
+            not:
+              api.connected:
+          then:
+            - logger.log: "API disconnected"
+            - script.execute: disconnected_mode
+          else:
+            - logger.log: "API connected"
+            - script.stop: disconnected_mode
