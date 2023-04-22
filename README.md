@@ -82,7 +82,7 @@ sensor:
         id: air_dew_point
         unit_of_measurement: °C
         accuracy_decimals: 2
-
+```
 Add the following righ below "board: esp32dev" 
 ```yaml
   libraries:
