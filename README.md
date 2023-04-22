@@ -6,6 +6,15 @@ More documentation might come available in future updates. Make sure to copy `ex
 
 Change the "X" in `open-air-valve.yaml` with a number or a letter. This will help you identify the Open AIR Valves.
 
+## Sensors
+
+The following sensors are supported right away, either via ESPHome or via a custom implementation.
+
+1. [SHT-31](#sensor-support-sht-31)
+1. [Senseair S8](#sensor-support-senseair-s8)
+1. [SHT-20](#sensor-support-sht-20)
+
+
 
 ### Sensor Support: SHT-31
 
@@ -100,5 +109,7 @@ Thanks
 
 @[wre](https://github.com/wrenoud) Thanks for your support on this sensor implementation
 
-Change all the 'x' in the document for a number or a letter so you know which valve is which. (if sensors have identical names they wont show up in HA)
 
+## Disconnected Mode
+
+When Home Assistant cannot be reached, either because of a lack of WiFi connection or the Home Assistant server being unavailable, a `disconnected mode` has been added to provide basic functionality to the Open AIR Valve unit. This mode will allow the unit to continue standalone. When losing connection to HA or to your WI-FI network the valve will open automatically. 
